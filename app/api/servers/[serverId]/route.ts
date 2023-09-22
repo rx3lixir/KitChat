@@ -15,9 +15,15 @@ export async function PATCH(
     const server = await db.server.update({
       where: {
         id: params.serverId,
+        profileId: profile.id,
       },
-      data: {},
+      data: {
+        name,
+        imageUrl,
+      },
     });
+
+    return NextResponse.json(server);
   } catch (error) {
     console.log("SERVER_ID_PATCH", error);
     return new NextResponse("Iternal Error", { status: 500 });
