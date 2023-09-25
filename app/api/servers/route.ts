@@ -3,12 +3,12 @@ import { MemberRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
-import { error } from "console";
 
 export async function POST(req: Request) {
   try {
-    const { name, imageUrl } = await req.json();
     const profile = await currentProfile();
+
+    const { name, imageUrl } = await req.json();
 
     if (!profile) return new NextResponse("Unautherized", { status: 401 });
 
