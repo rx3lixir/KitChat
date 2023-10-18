@@ -14,7 +14,7 @@ interface ChanneIdPageProps {
   };
 }
 
-const ChanneIdPage = async ({ params }: ChanneIdPageProps) => {
+const ChannelIdPage = async ({ params }: ChanneIdPageProps) => {
   const profile = await currentProfile();
 
   if (!profile) return redirectToSignIn();
@@ -45,4 +45,4 @@ const ChanneIdPage = async ({ params }: ChanneIdPageProps) => {
   );
 };
 
-export default ChanneIdPage;
+export default ChannelIdPage;
