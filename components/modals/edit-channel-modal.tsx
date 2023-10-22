@@ -24,15 +24,12 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+import { Select, SelectSection, SelectItem } from "@nextui-org/react";
+
 import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";
 
@@ -98,7 +95,7 @@ export const EditChannelModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className='bg-white text-black p-0 overflow-hidden'>
+      <DialogContent className='bg-white z-50 text-black p-0 overflow-hidden'>
         <DialogHeader className='pt-8 px-6'>
           <DialogTitle className='text-2xl text-center font-bold'>
             Edit Channel
@@ -132,29 +129,26 @@ export const EditChannelModal = () => {
                 name='type'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Channel Type</FormLabel>
-                    <Select
-                      disabled={isLoading}
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger className='bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none'>
-                          <SelectValue placeholder='Select a channel type' />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
+                    <FormLabel>CHANNEL TYPE</FormLabel>
+                    <FormControl>
+                      <Select
+                        size='xs'
+                        className='z-[51]'
+                        disabled={isLoading}
+                        onSelectionChange={field.onChange}
+                        label='Channel Type'
+                      >
                         {Object.values(ChannelType).map((type) => (
                           <SelectItem
                             key={type}
                             value={type}
-                            className='capitalize'
+                            className=' capitalize'
                           >
                             {type.toLowerCase()}
                           </SelectItem>
                         ))}
-                      </SelectContent>
-                    </Select>
+                      </Select>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
