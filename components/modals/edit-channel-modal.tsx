@@ -22,10 +22,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-import { Select, SelectSection, SelectItem } from "@nextui-org/react";
 
 import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
@@ -130,25 +136,29 @@ export const EditChannelModal = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>CHANNEL TYPE</FormLabel>
-                    <FormControl>
-                      <Select
-                        size='xs'
-                        className='z-[51]'
-                        disabled={isLoading}
-                        onSelectionChange={field.onChange}
-                        label='Channel Type'
-                      >
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className='bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none'>
+                          <SelectValue placeholder='Select a channel type' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
                         {Object.values(ChannelType).map((type) => (
                           <SelectItem
                             key={type}
                             value={type}
-                            className=' capitalize'
+                            className='capitalize'
                           >
                             {type.toLowerCase()}
                           </SelectItem>
                         ))}
-                      </Select>
-                    </FormControl>
+                      </SelectContent>
+                    </Select>
+
                     <FormMessage />
                   </FormItem>
                 )}
