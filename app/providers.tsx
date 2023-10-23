@@ -4,6 +4,7 @@ import * as React from "react";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { NextUIProvider } from "@nextui-org/react";
+import { SocketProvider } from "@/components/providers/socket-provider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -13,8 +14,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       storageKey='kitchat-theme'
     >
-      <ModalProvider />
-      <NextUIProvider>{children}</NextUIProvider>
+      <SocketProvider>
+        <ModalProvider />
+        <NextUIProvider>{children}</NextUIProvider>
+      </SocketProvider>
     </ThemeProvider>
   );
 }
