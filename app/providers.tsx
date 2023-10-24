@@ -5,6 +5,7 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { NextUIProvider } from "@nextui-org/react";
 import { SocketProvider } from "@/components/providers/socket-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -16,7 +17,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     >
       <SocketProvider>
         <ModalProvider />
-        <NextUIProvider>{children}</NextUIProvider>
+        <NextUIProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </NextUIProvider>
       </SocketProvider>
     </ThemeProvider>
   );
