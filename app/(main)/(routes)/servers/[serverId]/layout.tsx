@@ -1,30 +1,37 @@
-import { currentProfile } from "@/lib/current-profile";
-import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+
+import { db } from "@/lib/db";
+import { currentProfile } from "@/lib/current-profile";
 import { ServerSidebar } from "@/components/server/server-sidebar";
 
 const ServerIdLayout = async ({
-  params,
   children,
+  params,
 }: {
-  params: { serverId: string };
   children: React.ReactNode;
+  params: { serverId: string };
 }) => {
   const profile = await currentProfile();
 
-  if (!profile) return redirectToSignIn();
+  if (!profile) {
+    return redirectToSignIn();
+  }
 
   const server = await db.server.findUnique({
     where: {
       id: params.serverId,
       members: {
-        some: { profileId: profile.id },
+        some: {
+          profileId: profile.id,
+        },
       },
     },
   });
 
-  if (!server) return redirect("/");
+  if (!server) {
+    return redirect("/");
+  }
 
   return (
     <div className='h-full'>

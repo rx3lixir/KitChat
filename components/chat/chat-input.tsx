@@ -1,20 +1,17 @@
 "use client";
 
-import { Plus, Smile } from "lucide-react";
-
+import * as z from "zod";
 import axios from "axios";
 import qs from "query-string";
-
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { EmojiPicker } from "@/components/emoji-picker";
-
 import { useModal } from "@/hooks/use-modal-store";
-import { useRouter } from "next/navigation";
+import { EmojiPicker } from "@/components/emoji-picker";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -39,12 +36,14 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   });
 
   const isLoading = form.formState.isSubmitting;
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
         url: apiUrl,
-        query: query,
+        query,
       });
+
       await axios.post(url, values);
 
       form.reset();
@@ -90,7 +89,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
               </FormControl>
             </FormItem>
           )}
-        ></FormField>
+        />
       </form>
     </Form>
   );
